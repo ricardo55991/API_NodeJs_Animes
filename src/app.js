@@ -1,13 +1,13 @@
-import express from 'express';
-import cors from 'cors';
+const express = require('express');
+const cors = require('cors');
 
 const app = express();
-const PORT = process.env.PORT || 3000;
+const PORT = 3000;
 
 app.use(express.json());
 app.use(cors());
 
-import router from './routes.js'
+const router = require('./routes.js')
 app.use(router);
 
 app.listen(PORT, () => console.log("Servidor ON.")); // Porta que o express está trabalhando 

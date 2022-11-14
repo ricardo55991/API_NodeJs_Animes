@@ -5,10 +5,9 @@
     "fs": "^0.0.1-security",
     "https": "^1.0.0",
     "nodemon": "^2.0.19",
-    "sqlite": "^4.1.1",
-    "sqlite3": "^5.0.8"
+    "pg": "^8.8.0"
   },
-  "type": "module",
+  "type": "commonjs",
   "name": "animes_node",
   "version": "1.0.0",
   "main": "src/app.js",

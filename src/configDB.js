@@ -1,10 +1,9 @@
-import sqlite3 from 'sqlite3'
-import { open } from 'sqlite'
+const credenciais = {
+  user: 'dbadm',
+  host: 'localhost',
+  database: 'postgres',
+  password: 'JS2299Z@dAH$',
+  port: 5432,
+};
 
-export async function openDb () {
-  return open({
-    filename: 'src/dbanimes.db',
-    driver: sqlite3.Database
-  })
-}
-
+module.exports = credenciais;

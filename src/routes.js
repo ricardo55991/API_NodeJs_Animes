@@ -1,7 +1,7 @@
-import { Router } from "express";
-import { getAnimes, getAnimeID, getAnimeName, postAnime, putAnime, deleteAnime } from './Controller/Animes.js';
+const { json } = require('express');
 
-const router = Router();
+const router = require('express').Router();
+const animeController = require('./Controller/Animes.js').getAnimesX;
 
 router.get('/', (req, res)=>{
     res.json({
@@ -11,11 +11,25 @@ router.get('/', (req, res)=>{
 })
 
 // Rotas ANIMES 
-router.get('/animes', getAnimes);
-router.get('/animeID', getAnimeID);
-router.get('/animeName', getAnimeName);
-router.post('/anime', postAnime);
-router.put('/anime', putAnime);
-router.delete('/anime', deleteAnime);
+// router.get('/animesxx', async function (req, res){
+//     const response = await animeController();
+//     res.json(response);
+// });
+router.get('/animesxx', async function (req, res){
+    try {
+        const response = await animeController();
+        res.json(response);
+    }
+    catch (error) {
+        res.json({"Mensagem de erro": "Falha ao acessar a rota animesxx", "Descrição do erro:": error})
+    }
+});
 
-export default router;
+// router.get('/animes', getAnimes);
+// router.get('/animeID', getAnimeID);
+// router.get('/animeName', getAnimeName);
+// router.post('/anime', postAnime);
+// router.put('/anime', putAnime);
+// router.delete('/anime', deleteAnime);
+
+module.exports = router;

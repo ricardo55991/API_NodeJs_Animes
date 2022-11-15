@@ -1,7 +1,7 @@
 const { json } = require('express');
 
 const router = require('express').Router();
-const animeController = require('./Controller/Animes.js').getAnimesX;
+const { GetHora } = require('./Services/animesService');
 
 router.get('/', (req, res)=>{
     res.json({
@@ -10,19 +10,11 @@ router.get('/', (req, res)=>{
     })
 })
 
-// Rotas ANIMES 
-// router.get('/animesxx', async function (req, res){
-//     const response = await animeController();
-//     res.json(response);
-// });
-router.get('/animesxx', async function (req, res){
-    try {
-        const response = await animeController();
-        res.json(response);
-    }
-    catch (error) {
-        res.json({"Mensagem de erro": "Falha ao acessar a rota animesxx", "Descrição do erro:": error})
-    }
+
+// Animes
+router.get('/hora', async function (req, res){ 
+    const response = await GetHora(); 
+    res.json(response);
 });
 
 // router.get('/animes', getAnimes);

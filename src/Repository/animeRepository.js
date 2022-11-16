@@ -27,8 +27,9 @@ exports.getAnimes = async function (){
 }
 
 // Busca o anime pelo ID
-exports.getAnimeID = async function (id_anime){
+exports.getAnimeId = async function (id_anime){
     try {
+        const pool = new Pool(credenciais);
         const sql = ('select * from dbanime.animes where id_anime = $1');
         const values = [id_anime];
         let result = await pool.query(sql, values);
@@ -41,8 +42,9 @@ exports.getAnimeID = async function (id_anime){
 }
 
 // Busca o anime pelo nome
-exports.getAnimeName = async function (nome){
+exports.getAnimeNome = async function (nome){
     try {
+        const pool = new Pool(credenciais);
         const sql = ("select * from animes a where upper(a.nome) like upper('%$1%')");
         const values = [nome];
         let result = await pool.query(sql, values);

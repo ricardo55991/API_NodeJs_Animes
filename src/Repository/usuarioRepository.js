@@ -5,13 +5,16 @@ const credenciais = require('../config/configDB.js');
 exports.getUsuario = async function (loginOuEmail){
     try {
         const pool = new Pool(credenciais);
-        const sql = ("select id_usuario, senha, login, ind_adm, email, img_perfil from dbanime.usuarios where (login = '$1' or email = '$1')");
+        const sql = ("select id_usuario, login, senha, ind_adm, email, img_perfil from dbanime.usuarios where (login = $1 or email = $1)");
         const values = [loginOuEmail];
-        let result = await pool.query(sql, values);
+        let result = await pool.query<Object>(sql, values);
         pool.end();
-        return result.rows;
+        return result;
     }
     catch (error){
-        return "Falha ao buscar o usuário. Descrição do erro: " + error;
+        return JSON.stringify({
+            descricao: "Falha ao buscar o usuário. Descrição do erro: " + error,
+            indErro: true
+        })
     }
 }

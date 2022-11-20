@@ -13,21 +13,27 @@ const bcrypt = require('bcrypt');
 exports.getUsuario = async function (loginOuEmail, senha) {
     try{
         const usuario = await repository.getUsuario(loginOuEmail);
-
-        if(usuario.length == 0){
-            return "Login ou email inválido!";
-        }
-        else{
-            const validacaoSenha = await bcrypt.compare(senha, usuario.senha);
-            if(validacaoSenha == true){
-                return "Sucesso!";
+        
+        if(usuario.indErro == false){
+            if(usuario.indErro == false){
+                return "Login ou email inválido!";
             }
             else{
-                return "Senha incorreta!";
+                const validacaoSenha = await bcrypt.compare(senha, usuario.senha);
+                if(validacaoSenha == true){
+                    return "Sucesso!";
+                }
+                else{
+                    return "Senha incorreta!";
+                }
             }
+        }
+        else{
+            //retorna os erros obtidos no Repository
+            return usuario;
         }
     } 
     catch(error){
-        return "Erro ao acessar o serviço de buscar os episódios pelo ID da temporada. Descrição do erro: " + error;
+        return "Erro ao acessar o serviço de busca do usuário. Descrição do erro: " + error;
     }
 }

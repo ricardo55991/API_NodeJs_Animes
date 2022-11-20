@@ -7,7 +7,7 @@ const PORT = 3000;
 app.use(express.json());
 app.use(cors());
 
-const router = require('./routes.js')
+const router = require('./routes')
 app.use(router);
 
 app.listen(PORT, () => console.log("Servidor ON.")); // Porta que o express está trabalhando 

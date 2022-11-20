@@ -1,5 +1,5 @@
 const { Pool } = require("pg");
-const credenciais = require('../configDB.js');
+const credenciais = require('../config/configDB.js');
 
 // Busca as temporadas associadas ao anime pelo ID do anime
 exports.getEpisodiosTemporadaId = async function (id_temporada){

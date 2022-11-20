@@ -1,5 +1,5 @@
 const { Pool } = require("pg");
-const credenciais = require('../configDB.js');
+const credenciais = require('../config/configDB.js');
 
 exports.GetHora = async function (){
     try{
@@ -45,7 +45,7 @@ exports.getAnimeId = async function (id_anime){
 exports.getAnimeNome = async function (nome){
     try {
         const pool = new Pool(credenciais);
-        const sql = ("select * from animes a where upper(a.nome) like upper('%$1%')");
+        const sql = ("select * from dbanime.animes where upper(nome) like upper('%$1%')");
         const values = [nome];
         let result = await pool.query(sql, values);
         pool.end();

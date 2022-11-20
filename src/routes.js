@@ -1,9 +1,10 @@
 const { json } = require('express');
-
 const router = require('express').Router();
-const animeService = require('./Services/animeService');
-const temporadaService = require('./Services/temporadaService');
-const episodioService = require('./Services/episodioService');
+const temporadaRouter = require('./routes/temporadaRouter');
+const animeRouter = require('./routes/animeRouter');
+const episodioRouter = require('./routes/episodioRouter');
+const usuarioRouter = require('./routes/usuarioRouter');
+
 
 router.get('/', (req, res)=>{
     res.json({
@@ -12,42 +13,11 @@ router.get('/', (req, res)=>{
     })
 })
 
-
-// ------------------------------------------------------ Animes -------------------------------------------------------
-router.get('/hora', async function (req, res){ 
-    const result = await animeService.GetHora(); 
-    res.json(result);
-});
-router.get('/animes', async function (req, res){
-    const result = await animeService.getAnimes();
-    res.json(result);
-});
-router.get('/animeId', async function (req, res){
-    const result = await animeService.getAnimeId();
-    res.json(result);
-});
-router.get('/animeNome', async function (req, res){
-    const result = await animeService.getAnimeNome();
-    res.json(result);
-});
-
-
-// ---------------------------------------------------- Temporadas -----------------------------------------------------
-router.get('/temporadaId', async function (req, res){
-    const result = await temporadaService.getTemporadasAnimeId();
-    res.json(result);
-});
-
-// ----------------------------------------------------- Episódios -----------------------------------------------------
-router.get('/episodioId', async function (req, res){
-    const result = await episodioService.getEpisodioId();
-    res.json(result);
-});
-router.get('/episodiosTemporadaId', async function (req, res){
-    const result = await episodioService.getEpisodiosTemporadaId();
-    res.json(result);
-});
-
+// Rotas 
+router.use('/anime', animeRouter);
+router.use('/temporada', temporadaRouter);
+router.use('/episodio', episodioRouter);
+router.use('/usuario', usuarioRouter);
 
 module.exports = router;
 

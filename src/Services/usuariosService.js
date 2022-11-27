@@ -35,7 +35,10 @@ exports.getUsuario = async function (usuario, senha) {
         }
     } 
     catch(error){
-        return "Erro ao acessar o serviço de busca do usuário. Descrição do erro: " + error;
+        return {
+            descricao: "Erro ao acessar o serviço de busca do usuário. Descrição do erro: " + error,
+            indErro: true
+        }
     }
 }
 
@@ -46,6 +49,9 @@ exports.postUsuario = async function (usuario, email, senha) {
         return await repository.postUsuario(usuario, email, hash);
     } 
     catch(error){
-        return "Erro ao acessar o serviço de inserção do usuário. Descrição do erro: " + error;
+        return {
+            descricao: "Erro ao acessar o serviço de inserção do usuário. Descrição do erro: " + error,
+            indErro: true
+        }
     }
 }

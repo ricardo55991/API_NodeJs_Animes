@@ -18,10 +18,13 @@ exports.getUsuario = async function (login){
         return objeto;
     }
     catch (error){
-        return JSON.stringify({
+        const objeto = {
+            dados: null,
+            numLinhas: null,
             descricao: "Falha ao buscar o usuário. Descrição do erro: " + error,
             indErro: true
-        })
+        }
+        return objeto;
     }
 }
 
@@ -31,33 +34,35 @@ exports.postUsuario = async function (login, email, senha){
         const pool = new Pool(credenciais);
         const sql = ("insert into dbanime.usuarios (login, email, senha) values ($1, $2, $3)");
         const values = [login, email, senha];
-        let result = await pool.query(sql, values);
+        await pool.query(sql, values);
         pool.end();
         const objeto = {
-            dados: 'Usuário inserido com sucesso!',
-            descricao: null,
+            descricao: 'Usuário inserido com sucesso!',
             indErro: false
         }
         return objeto;
     }
     catch (error){
         if(error.message == 'duplicate key value violates unique constraint "login_unique"'){
-            return JSON.stringify({
+            const objeto = {
                 descricao: "Login existente",
                 indErro: true
-            });
+            }
+            return objeto;
         }
         else if(error.message == 'duplicate key value violates unique constraint "email_unique"'){
-            return JSON.stringify({
+            const objeto = {
                 descricao: "Email existente",
                 indErro: true
-            });
+            }
+            return objeto;
         }
         else{
-            return JSON.stringify({
+            const objeto = {
                 descricao: "Falha ao inserir o usuário. Descrição do erro: " + error,
                 indErro: true
-            });
+            }
+            return objeto;
         }
     }
 }

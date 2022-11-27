@@ -1,23 +1,31 @@
-const repository = require('../Repository/usuarioRepository');
+const repository = require('../Repository/usuariosRepository');
 const bcrypt = require('bcrypt');
 const saltRounds = 10;
 
 // Valida o login e senha do usuário
-exports.getUsuario = async function (login, senha) {
+exports.getUsuario = async function (usuario, senha) {
     try{
-        const _repository = await repository.getUsuario(login);
+        const _repository = await repository.getUsuario(usuario);
 
         if(_repository.indErro == false){
             if(_repository.numLinhas == 0){
-                return "Login ou email inválido!";
+                return {
+                    indErro: true,
+                    descricao: "Usuário ou email inválido!"
+                };
             }
             else{
                 const validacaoSenha = await bcrypt.compare(senha, _repository.dados.senha);
                 if(validacaoSenha == true){
-                    return "Sucesso!";
+                    _repository.descricao = "Login validado com sucesso!";
+                    delete _repository.dados.senha;
+                    return _repository;
                 }
                 else{
-                    return "Senha incorreta!";
+                    return {
+                        indErro: true,
+                        descricao: "Senha incorreta!"
+                    };
                 }
             }
         }
@@ -32,10 +40,10 @@ exports.getUsuario = async function (login, senha) {
 }
 
 // Insere o usuário no banco
-exports.postUsuario = async function (login, email, senha) {
+exports.postUsuario = async function (usuario, email, senha) {
     try{
         const hash = bcrypt.hashSync(senha, saltRounds); // Criptografa a senha
-        return await repository.postUsuario(login, email, hash);
+        return await repository.postUsuario(usuario, email, hash);
     } 
     catch(error){
         return "Erro ao acessar o serviço de inserção do usuário. Descrição do erro: " + error;

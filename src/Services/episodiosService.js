@@ -1,4 +1,4 @@
-const repository = require('../Repository/episodioRepository');
+const repository = require('../Repository/episodiosRepository');
 
 exports.getEpisodiosTemporadaId = async function () {
     try{

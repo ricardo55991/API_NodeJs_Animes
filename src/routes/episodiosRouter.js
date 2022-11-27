@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const episodioService = require('../Services/episodioService');
+const episodioService = require('../Services/episodiosService');
 
 router.get('/episodioId', async function (req, res){
     const result = await episodioService.getEpisodioId();

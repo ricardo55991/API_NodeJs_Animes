@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const animeService = require('../Services/animeService');
+const animeService = require('../Services/animesService');
 
 router.get('/hora', async function (req, res){ 
     const result = await animeService.GetHora(); 
@@ -7,13 +7,12 @@ router.get('/hora', async function (req, res){
 });
 
 router.get('/animes', async function (req, res){
-    const result = await animeService.getAnimes();
+    const result = await animeService.getAnimes(req.body.id_usuario);
     res.json(result);
 });
 
 router.get('/animeId', async function (req, res){
     const result = await animeService.getAnimeId();
-    //const result = await animeService.getAnimeId(req.body.animeId); // Exemplo de dados que deverão ser recebidos
     res.json(result);
 });
 

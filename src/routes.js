@@ -1,9 +1,9 @@
 const { json } = require('express');
 const router = require('express').Router();
-const temporadaRouter = require('./routes/temporadaRouter');
-const animeRouter = require('./routes/animeRouter');
-const episodioRouter = require('./routes/episodioRouter');
-const usuarioRouter = require('./routes/usuarioRouter');
+const temporadasRouter = require('./routes/temporadasRouter');
+const animesRouter = require('./routes/animesRouter');
+const episodiosRouter = require('./routes/episodiosRouter');
+const usuariosRouter = require('./routes/usuariosRouter');
 
 
 router.get('/', (req, res)=>{
@@ -14,10 +14,10 @@ router.get('/', (req, res)=>{
 })
 
 // Rotas 
-router.use('/anime', animeRouter);
-router.use('/temporada', temporadaRouter);
-router.use('/episodio', episodioRouter);
-router.use('/usuario', usuarioRouter);
+router.use('/animes', animesRouter);
+router.use('/temporadas', temporadasRouter);
+router.use('/episodios', episodiosRouter);
+router.use('/usuarios', usuariosRouter);
 
 module.exports = router;
 

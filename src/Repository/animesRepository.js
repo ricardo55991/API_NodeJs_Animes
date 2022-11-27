@@ -14,12 +14,24 @@ exports.GetHora = async function (){
 }
 
 // Busca todos os animes
-exports.getAnimes = async function (){
+exports.getAnimes = async function (id_usuario){
     try{
         const pool = new Pool(credenciais);
-        const sql = await pool.query('select * from dbanime.animes')
+        let result;
+
+        // É validado se o usuário está logado, pois se estiver precisa exibir os animes que foi favoritado.
+        if(id_usuario == null){
+            result = await pool.query("select ani.*, 'N' ind_favorito  from dbanime.animes ani order by ani.data_criacao asc");
+        }else{
+            const sql = `select ani.*, (case when fav.id_usuario = $1 then 'S' else 'N' end) ind_favorito 
+                        from dbanime.animes ani 
+                        left join dbanime.favoritos fav on fav.id_anime = ani.id_anime and fav.id_usuario = $1
+                        order by ani.data_criacao asc`;
+            const values = [id_usuario];
+            result = await pool.query(sql, values);
+        }
         pool.end();
-        return sql.rows;
+        return result.rows;
     }
     catch (error){
         return "Falha ao buscar todos os animes. Descrição do erro: " + error;
@@ -55,39 +67,3 @@ exports.getAnimeNome = async function (nome){
         return "Falha ao buscar o anime pelo nome. Descrição do erro: " + error;
     }
 }
-
-// // Metódo de adicionar um anime
-// export async function postAnime(req, res){
-//     let anime = req.body;
-//     openDb().then(db=>{
-//         db.run('insert into animes (nome, descricao, img_logo, dublado, legendado, avaliacao, id_categoria) values (?, ?, ?, ?, ?, ?)', 
-//         [anime.nome, anime.descricao, anime.img_logo, anime.dublado, anime.legendado, anime.avaliacao, anime.id_categoria]);
-//     });
-//     res.json({
-//         "statusCode": 200
-//     })
-// }
-
-// // Metódo de editar um anime
-// export async function putAnime(req, res){
-//     let anime = req.body;
-//     openDb().then(db=>{
-//         db.run('update animes set nome=?, descricao=?, img_logo=?, dublado=?, legendado=?, avaliacao=?, id_categoria=? where id_anime=?', 
-//         [anime.nome, anime.descricao, anime.img_logo, anime.dublado, anime.legendado, anime.avaliacao, anime.id_categoria, anime.id_anime]);
-//     });
-//     res.json({
-//         "statusCode": 200
-//     })
-// }
-
-// // Metódo de deletar um anime
-// export async function deleteAnime(req, res){
-//     let id = req.body.id_anime;
-//     openDb().then(db=>{
-//         db.get('delete from anime where id_anime=?', [id])
-//         .then(res=>res)
-//     });
-//     res.json({
-//         "statusCode": 200
-//     })
-// }

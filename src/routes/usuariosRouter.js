@@ -1,8 +1,8 @@
 const router = require('express').Router();
-const usuarioService = require('../Services/usuarioService');
+const usuarioService = require('../Services/usuariosService');
 
 router.get('/login', async function (req, res){ 
-    const result = await usuarioService.getUsuario(req.body.login, req.body.senha); 
+    const result = await usuarioService.getUsuario(req.query.usuario, req.query.senha); 
     res.json(result);
 });
 

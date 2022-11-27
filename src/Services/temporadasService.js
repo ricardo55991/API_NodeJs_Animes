@@ -1,4 +1,4 @@
-const repository = require('../Repository/temporadaRepository');
+const repository = require('../Repository/temporadasRepository');
 
 exports.getTemporadasIdAnime = async function () {
     try{

@@ -1,4 +1,4 @@
-const repository = require('../Repository/animeRepository');
+const repository = require('../Repository/animesRepository');
 
 exports.GetHora = async function () {
     try{
@@ -9,9 +9,9 @@ exports.GetHora = async function () {
     }
 }
 
-exports.getAnimes = async function () {
+exports.getAnimes = async function (id_usuario) {
     try{
-        return await repository.getAnimes();
+        return await repository.getAnimes(id_usuario);
     } 
     catch(error){
         return "Erro ao acessar o serviço de busca dos animes. Descrição do erro: " + error

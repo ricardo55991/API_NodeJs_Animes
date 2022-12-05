@@ -11,4 +11,9 @@ router.post('/cadastro', async function (req, res){
     res.json(result);
 });
 
+router.put('/atualizar', async function (req, res){ 
+    const result = await usuarioService.putUsuario(req.body.email, req.body.senha, req.body.id_usuario); 
+    res.json(result);
+});
+
 module.exports = router;

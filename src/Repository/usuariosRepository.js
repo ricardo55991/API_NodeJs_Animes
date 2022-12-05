@@ -66,3 +66,28 @@ exports.postUsuario = async function (login, email, senha){
         }
     }
 }
+
+exports.putUsuario = async function (email, senha, id_usuario){
+    try {
+        const pool = new Pool(credenciais);
+        const sql = (`UPDATE dbanime.usuarios 
+                    SET email = $1,
+                        senha = $2
+                    WHERE id_usuario = $3`);
+        const values = [email, senha, id_usuario];
+        await pool.query(sql, values);
+        pool.end();
+        const objeto = {
+            descricao: 'Usuário atualizado com sucesso!',
+            indErro: false
+        }
+        return objeto;
+    }
+    catch (error){
+        const objeto = {
+            descricao: "Falha ao atualizar o usuário. Descrição do erro: " + error,
+            indErro: true
+        }
+        return objeto;
+    }
+}

@@ -42,7 +42,10 @@ exports.getAnimes = async function (id_usuario){
 exports.getAnimeId = async function (id_anime){
     try {
         const pool = new Pool(credenciais);
-        const sql = ('select * from dbanime.animes where id_anime = $1');
+        const sql = (`select ani.*, tmp.id_temporada, tmp.nome_temporada, epi.id_episodio, epi.nome_episodio, epi.link from dbanime.animes ani
+                    left join dbanime.temporadas tmp on tmp.id_anime = ani.id_anime 
+                    left join dbanime.episodios epi on epi.id_temporada = tmp.id_temporada 
+                    where ani.id_anime = $1`);
         const values = [id_anime];
         let result = await pool.query(sql, values);
         pool.end();

@@ -7,12 +7,12 @@ router.get('/hora', async function (req, res){
 });
 
 router.get('/animes', async function (req, res){
-    const result = await animeService.getAnimes(req.body.id_usuario);
+    const result = await animeService.getAnimes(req.query.id_usuario);
     res.json(result);
 });
 
 router.get('/animeId', async function (req, res){
-    const result = await animeService.getAnimeId();
+    const result = await animeService.getAnimeId(req.query.id_anime);
     res.json(result);
 });
 

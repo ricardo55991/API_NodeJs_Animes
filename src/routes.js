@@ -4,6 +4,7 @@ const temporadasRouter = require('./routes/temporadasRouter');
 const animesRouter = require('./routes/animesRouter');
 const episodiosRouter = require('./routes/episodiosRouter');
 const usuariosRouter = require('./routes/usuariosRouter');
+const favoritosRouter = require('./routes/favoritosRouter');
 
 
 router.get('/', (req, res)=>{
@@ -18,6 +19,7 @@ router.use('/animes', animesRouter);
 router.use('/temporadas', temporadasRouter);
 router.use('/episodios', episodiosRouter);
 router.use('/usuarios', usuariosRouter);
+router.use('/favoritos', favoritosRouter);
 
 module.exports = router;
 

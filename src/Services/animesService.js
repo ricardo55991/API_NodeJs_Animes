@@ -18,9 +18,9 @@ exports.getAnimes = async function (id_usuario) {
     }
 }
 
-exports.getAnimeId = async function () {
+exports.getAnimeId = async function (id_anime) {
     try{
-        return await repository.getAnimeId();
+        return await repository.getAnimeId(id_anime);
     } 
     catch(error){
         return "Erro ao acessar o serviço de busca do anime pelo ID. Descrição do erro: " + error

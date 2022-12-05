@@ -54,4 +54,17 @@ exports.postUsuario = async function (usuario, email, senha) {
             indErro: true
         }
     }
+},
+
+exports.putUsuario = async function (email, senha, id_usuario) {
+    try{
+        const hash = bcrypt.hashSync(senha, saltRounds)
+        return await repository.putUsuario(email, hash, id_usuario);
+    } 
+    catch(error){
+        return {
+            descricao: "Erro ao acessar o serviço de atualização do usuário. Descrição do erro: " + error,
+            indErro: true
+        }
+    }
 }
